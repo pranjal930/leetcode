@@ -1,0 +1,36 @@
+/*Given an unsorted integer array, find the smallest missing positive integer.*/
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int i,j,n=nums.length;
+        boolean present1=false;
+        for(i=0;i<n;i++)
+        {
+            if(nums[i]==1)
+                present1=true;
+        }
+        if(!present1)
+            return 1;
+        for(i=0;i<n;i++)
+        {
+            if(nums[i]<=0||nums[i]>n)
+                nums[i]=1;
+        }
+        for(i=0;i<n;i++)
+        {
+            int ind=Math.abs(nums[i]);
+            if(ind ==n)
+                nums[0]=-Math.abs(nums[0]);
+            else
+            nums[ind]=-Math.abs(nums[ind]);
+            
+        }
+        for(i=1;i<n;i++)
+        {
+            if(nums[i]>0)
+                return i;
+        }
+        if(nums[0]>0)
+            return n;
+        return n+1;
+    }
+}

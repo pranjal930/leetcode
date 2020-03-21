@@ -1,0 +1,62 @@
+/*Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    List<List<Integer>>ans=new ArrayList<List<Integer>>();
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> sol=new ArrayList<Double>();
+        if(root==null)
+            return sol;
+        printLevelOrder(root);
+        for(int i=0;i<ans.size();i++)
+        {
+            Double sum=0.0;
+            for(int j=0;j<ans.get(i).size();j++)
+            {
+                sum+=ans.get(i).get(j);
+            }
+            sol.add(sum/ans.get(i).size());
+            
+        }
+        return sol;
+    }
+      public int maxHeight(TreeNode root)
+    {
+        if(root==null)
+            return 0;
+        int leftHeight=maxHeight(root.left);
+        int rightHeight=maxHeight(root.right);
+        return Math.max(leftHeight,rightHeight)+1;
+    }
+    public void printLevelOrder(TreeNode root)
+    {
+        int height=maxHeight(root);
+        for(int i=1;i<=height;i++)
+        {
+            ans.add(new ArrayList<Integer>());
+        }
+        giveLevelOrder(root,0,height);
+    }
+    public void giveLevelOrder(TreeNode root,int level,int height)
+    {
+        if(root==null)
+            return;
+        if(root.left!=null)
+        {
+            giveLevelOrder(root.left,level+1,height);
+        }
+        if(root.right!=null)
+        {
+            giveLevelOrder(root.right,level+1,height);
+        }
+            ans.get(level).add(root.val);
+        
+    }
+}
