@@ -1,0 +1,91 @@
+/*You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Follow up:
+What if you cannot modify the input lists? In other words, reversing the lists is not allowed.*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode temp=l1;
+        int count1=0,count2=0,c,x;
+        Stack <ListNode> stack1=new Stack<>();
+        Stack <ListNode> stack2=new Stack<>();
+        while(temp!=null)
+        {
+            stack1.push(temp);
+            count1++;
+            temp=temp.next;
+        }
+        temp=l2;
+        while(temp!=null)
+        {
+            stack2.push(temp);
+            count2++;
+            temp=temp.next;
+        }
+        if(count2>count1)
+        {c=0;
+            while(!stack1.isEmpty())
+            {
+                l1=stack1.pop();
+                l2=stack2.pop();
+                x=(l2.val+l1.val+c)%10;
+                c=(l2.val+l1.val+c)/10;
+                l2.val=x;
+            }
+            while(!stack2.isEmpty())
+            {
+                
+                    
+                l2=stack2.pop();
+                if(c==1){
+                    x=(l2.val+c)%10;
+                    c=(l2.val+c)/10;
+                    l2.val=x;
+                }
+            }
+         if(c==1)
+         {
+             ListNode l3=new ListNode(1);
+             l3.next=l2;
+             l2=l3;
+         }
+            return l2;
+        }
+        else
+        {c=0;
+            while(!stack2.isEmpty())
+            {
+                l1=stack1.pop();
+                l2=stack2.pop();
+                x=(l2.val+l1.val+c)%10;
+                c=(l2.val+l1.val+c)/10;
+                l1.val=x;
+            }
+            while(!stack1.isEmpty())
+            {
+                l1=stack1.pop();
+                 if(c==1){
+                    x=(l1.val+c)%10;
+                    c=(l1.val+c)/10;
+                    l1.val=x;
+                }
+            }
+         if(c==1)
+         {
+             ListNode l3=new ListNode(1);
+             l3.next=l1;
+             l1=l3;
+         }
+            return l1;
+        }
+    }
+}

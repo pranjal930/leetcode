@@ -1,0 +1,33 @@
+/*Given a linked list, remove the n-th node from the end of list and return its head.
+
+*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode p=head,q=head;
+        int count=0,i;
+        while(p!=null)
+        {
+            p=p.next;
+            count++;
+        }
+        for(i=0;i<count-n-1;i++)
+        {
+            q=q.next;
+        }
+        if(count-n-1<0)
+            head=q.next;
+        else
+        q.next=q.next.next;
+        return head;
+        
+        
+    }
+}

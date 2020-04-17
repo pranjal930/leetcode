@@ -1,0 +1,26 @@
+/*Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    ArrayList<Integer> ans=new ArrayList<Integer>();
+    public int kthSmallest(TreeNode root, int k) {
+        insertIntoArray(root);
+        return ans.get(k-1);
+        
+    }
+    public void insertIntoArray(TreeNode root)
+    {
+        if(root==null)
+            return;
+          insertIntoArray(root.left);
+          ans.add(root.val);
+          insertIntoArray(root.right);
+    }
+}

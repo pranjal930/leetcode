@@ -1,0 +1,61 @@
+/*Given a (singly) linked list with head node root, write a function to split the linked list into k consecutive linked list "parts".
+
+The length of each part should be as equal as possible: no two parts should have a size differing by more than 1. This may lead to some parts being null.
+
+The parts should be in order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal parts occurring later.
+
+Return a List of ListNode's representing the linked list parts that are formed.
+
+Examples 1->2->3->4, k = 5 // 5 equal parts [ [1], [2], [3], [4], null ]*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode[] splitListToParts(ListNode root, int k) {
+        ListNode[] sol=new ListNode[k];
+        ListNode curr=root,newcurr=root,prev;
+        int count=0,excess,arrcnt=0,i;
+        while(newcurr!=null)
+        {
+            newcurr=newcurr.next;
+            count++;
+        }
+        if(count<k)
+        {
+            while(curr!=null)
+            {
+                newcurr=curr.next;
+            curr.next=null;
+            sol[arrcnt++]=curr;
+            curr=newcurr;
+            }
+            for(i=count;i<k;i++)
+                sol[arrcnt++]=null;
+            return sol;
+        }
+        excess=count%k;
+        while(curr!=null)
+        {
+            prev=curr;
+            for(i=0;i<count/k-1;i++)
+            {
+                curr=curr.next;
+            }
+            if(excess>0)
+            {
+                curr=curr.next;
+                excess--;
+            }
+            newcurr=curr.next;
+            curr.next=null;
+            sol[arrcnt++]=prev;
+            curr=newcurr;
+        }
+        return sol;
+    }
+}
