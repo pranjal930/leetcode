@@ -1,0 +1,43 @@
+/*Two elements of a binary search tree (BST) are swapped by mistake.
+
+Recover the tree without changing its structure.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    TreeNode first=null,second=null,prev=null;
+    public void recoverTree(TreeNode root) {
+        if(root==null)
+            return ;
+        inOrder(root);
+        if(first!=null)
+        {
+            int temp=first.val;
+        first.val=second.val;
+        second.val=temp;
+        }
+    }
+    public void inOrder(TreeNode root)
+    {
+        if(root==null)
+            return ;
+        inOrder(root.left);
+        if(prev!=null)
+        {
+            if(prev.val>root.val)
+            {
+                if(first==null)
+                first=prev;
+            second=root;
+            }
+        }
+        prev=root;
+        inOrder(root.right);
+    }
+}
