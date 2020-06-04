@@ -1,0 +1,41 @@
+/*Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        LinkedList<Integer> sol=new LinkedList<>(); 
+        if(root==null)
+             return sol;
+         LinkedList<TreeNode> queueNode=new LinkedList<>();
+         LinkedList<Integer> queueDepth=new LinkedList<>();
+         
+         queueNode.add(root);
+         queueDepth.add(0);
+         while(!queueNode.isEmpty())
+         {
+             TreeNode current=queueNode.poll();
+             int depth=queueDepth.poll();
+             if(current.left!=null)
+             {
+                 queueNode.add(current.left);
+                 queueDepth.add(depth+1);
+             }
+             if(current.right!=null)
+             {
+                 queueNode.add(current.right);
+                 queueDepth.add(depth+1);
+             }
+             if(queueDepth.isEmpty()||queueDepth.peek()==depth+1)
+                 sol.add(current.val);
+             
+         }
+        return sol;
+    }
+}

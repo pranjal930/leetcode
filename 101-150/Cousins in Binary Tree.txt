@@ -1,0 +1,67 @@
+/*In a binary tree, the root node is at depth 0, and children of each depth k node are at depth k+1.
+
+Two nodes of a binary tree are cousins if they have the same depth, but have different parents.
+
+We are given the root of a binary tree with unique values, and the values x and y of two different nodes in the tree.
+
+Return true if and only if the nodes corresponding to the values x and y are cousins.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        int xdepth=-1,ydepth=-1;
+        if(root==null)
+            return false;
+        LinkedList<TreeNode> nodelist=new LinkedList<>();
+        LinkedList<Integer> depth=new LinkedList<>();
+        nodelist.add(root);
+        depth.add(0);
+        while(!nodelist.isEmpty())
+        {
+            TreeNode curr=nodelist.poll();
+            int currDepth=depth.poll();
+            if(curr.left!=null&&curr.right!=null)
+            {
+                if((curr.left.val==x||curr.left.val==y)&&(curr.right.val==x||curr.right.val==y))
+                    return false;
+            }
+            if(curr.val==x)
+                xdepth=currDepth;
+            else if(curr.val==y)
+                ydepth=currDepth;
+            if(xdepth!=-1&&ydepth!=-1)
+            {
+               if(xdepth==ydepth)
+                return true;
+               return false;
+             }
+            if(curr.left!=null)
+            {
+                nodelist.add(curr.left);
+                    depth.add(currDepth+1);
+            }
+            if(curr.right!=null)
+            {
+                nodelist.add(curr.right);
+                    depth.add(currDepth+1);
+            }
+            
+                
+        }
+        return false;
+            
+    }
+}

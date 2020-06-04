@@ -1,0 +1,44 @@
+class Solution {
+    public int calPoints(String[] ops) {
+        Stack<Integer> scores=new Stack<>();
+        int sum=0;
+        for(int i=0;i<ops.length;i++)
+        {
+            if(ops[i].compareTo("C")!=0&&ops[i].compareTo("D")!=0&&ops[i].compareTo("+")!=0)
+            {
+                scores.push(Integer.parseInt(ops[i]));
+                sum+=Integer.parseInt(ops[i]);
+            }
+            else if(ops[i].compareTo("C")==0)
+            {
+                if(!scores.isEmpty())
+                sum-=scores.pop();
+            }
+            else if(ops[i].compareTo("D")==0)
+            {
+                
+                if(!scores.isEmpty())
+                {sum+=scores.peek()*2;
+                scores.push(scores.peek()*2);}
+            }
+            else
+            {
+                int newScore=0;
+                if(!scores.isEmpty())
+                {
+                    int temp=scores.pop();
+                    if(!scores.isEmpty())
+                    {
+                        newScore=temp+scores.peek();
+                        sum+=newScore;
+                    }
+                    scores.push(temp);
+                }
+                
+                scores.push(newScore);
+            }
+            System.out.println(sum);
+        }
+        return sum;
+    }
+}

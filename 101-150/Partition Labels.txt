@@ -1,0 +1,26 @@
+/*A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.*/
+class Solution {
+    public List<Integer> partitionLabels(String S) {
+        int []last=new int[26];
+        for(int i=0;i<S.length();i++)
+        {
+            last[S.charAt(i)-'a']=i;
+        }
+        List<Integer> sol=new ArrayList<>();
+        int j=0;
+        int count=0;
+        for(int i=0;i<S.length();i++)
+        {
+            j=Math.max(j,last[S.charAt(i)-'a']);
+            count++;
+            if(i==j)
+            {
+                sol.add(count);
+                count=0;
+                j=0;
+            }
+            
+        }
+        return sol;
+    }
+}

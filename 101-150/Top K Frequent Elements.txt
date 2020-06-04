@@ -1,0 +1,26 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> freq=new HashMap<>();
+        for(int i:nums)
+        {
+            freq.put(i,freq.getOrDefault(i,0)+1);
+        }
+        PriorityQueue<Integer> heap=new PriorityQueue<>((n1,n2)->freq.get(n1)-freq.get(n2));
+        for(int i:freq.keySet())
+        {
+            heap.add(i);
+            System.out.println("added "+i);
+            if(heap.size()>k)
+                heap.poll();
+        }
+        int[] sol=new int[k];
+        int i=0;
+        while(!heap.isEmpty())
+        {
+            
+            sol[i++]=heap.poll();
+             System.out.println("added "+sol[i-1]);
+        }
+        return sol;
+    }
+}

@@ -1,0 +1,49 @@
+/*Return the root node of a binary search tree that matches the given preorder traversal.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        if(preorder.length==0)
+            return null;
+        TreeNode root=new TreeNode(preorder[0]);
+        buildTree(root,preorder,0,preorder.length);
+        return root;
+    }
+    public void buildTree(TreeNode root,int[] preorder,int rootPos ,int limit)
+    {
+        int setLimit;
+        for(setLimit=rootPos;setLimit<limit;setLimit++)
+        {
+             if(preorder[setLimit]>root.val)
+             {
+                 if(setLimit>rootPos+1)
+                 {
+                     root.left=new TreeNode(preorder[rootPos+1]);
+                     buildTree(root.left,preorder,rootPos+1,setLimit);
+                     root.right=new TreeNode(preorder[setLimit]);
+                     buildTree(root.right,preorder,setLimit,limit);
+                     break;
+                 }
+                 else
+                 {
+                     root.right=new TreeNode(preorder[setLimit]);
+                     buildTree(root.right,preorder,setLimit,limit);
+                     break;
+ 
+                 }
+             }
+        }
+        if(setLimit==limit&&setLimit-1!=rootPos)
+        {
+            root.left=new TreeNode(preorder[rootPos+1]);
+            buildTree(root.left,preorder,rootPos+1,setLimit);
+        }
+    }
+}

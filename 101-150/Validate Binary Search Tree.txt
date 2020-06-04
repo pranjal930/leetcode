@@ -1,0 +1,39 @@
+/*Given a binary tree, determine if it is a valid binary search tree (BST).*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    TreeNode left=null;
+    int flag=0;
+    public boolean isValidBST(TreeNode root) {
+        inOrder(root);
+        return flag==0;
+        
+    }
+    public void inOrder(TreeNode root)
+    {
+        if(root==null )
+            return ;
+        inOrder(root.left);
+        if(left==null)
+            left=root;
+        else
+        {
+            if(left.val>=root.val)
+            {
+                flag=1;
+                return ;
+            }
+            else
+                left=root;
+        }
+        if (flag!=1)
+        inOrder(root.right);
+    }
+}

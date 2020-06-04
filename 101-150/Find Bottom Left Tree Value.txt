@@ -1,0 +1,31 @@
+/*Given a binary tree, find the leftmost value in the last row of the tree.*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int maxDepth=-1;
+    int sol;
+    public int findBottomLeftValue(TreeNode root) {
+        leftmost(root,0);
+        return sol;
+    }
+    public void leftmost(TreeNode root,int depth)
+    {
+        if(root==null)
+            return ;
+        if(depth>maxDepth)
+        {
+            maxDepth=depth;
+            sol=root.val;               
+        }
+        leftmost(root.left,depth+1);
+        leftmost(root.right,depth+1); 
+        
+    }
+}

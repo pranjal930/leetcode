@@ -1,0 +1,77 @@
+/*Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+ 
+
+Follow up:
+
+You may only use constant extra space.
+Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.*/
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+     Node current = root;
+     Node nextHead=null,nextTraverse=null;
+     while(current!=null)
+     {
+         if(current.left!=null)
+         {
+             if(nextHead==null)
+             {
+                 nextHead=current.left;
+                 nextTraverse=current.left;
+             }
+             else
+             {
+                 nextTraverse.next=current.left;
+                 nextTraverse=nextTraverse.next;
+             }
+         }
+         if(current.right!=null)
+         {
+             if(nextHead==null)
+             {
+                 nextHead=current.right;
+                 nextTraverse=current.right;
+             }
+             else
+             {
+                 nextTraverse.next=current.right;
+                 nextTraverse=nextTraverse.next;
+             }
+         }
+         current=current.next;
+         if(current==null)
+         {
+             current=nextHead;
+             nextHead=null;
+             nextTraverse=null;
+         }
+            
+     }
+        return root;
+    }
+}

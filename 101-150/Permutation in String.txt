@@ -1,0 +1,37 @@
+/*Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. In other words, one of the first string's permutations is the substring of the second string.*/
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+         int[] alpha=new int[26];
+        int[] pString=new int[26];
+        int k;
+        for(int j=0;j<26;j++)
+                pString[j]=0;
+        for(int i=0;i<s1.length();i++)
+        {
+            pString[s1.charAt(i)-97]++;
+        }
+        for(int i=0;i<s2.length();i++)
+        {
+            for(int j=0;j<26;j++)
+                alpha[j]=0;
+            for(int j=i;j<s2.length();j++)
+            {
+                if(pString[s2.charAt(j)-97]>0&&alpha[s2.charAt(j)-97]<pString[s2.charAt(j)-97])
+                {
+                    alpha[s2.charAt(j)-97]++;
+                }
+                else
+                    break;
+            }
+            for(k=0;k<26;k++)
+            {
+                if(alpha[k]!=pString[k])
+                    break;
+            }
+            if(k==26)
+                return true;
+            
+        }
+        return false;
+    }
+}

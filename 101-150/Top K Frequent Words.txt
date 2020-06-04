@@ -1,0 +1,17 @@
+/*Given a non-empty list of words, return the k most frequent elements.
+
+Your answer should be sorted by frequency from highest to lowest. If two words have the same frequency, then the word with the lower alphabetical order comes first.*/
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        HashMap<String,Integer> countMap=new HashMap<>();
+        for(String temp:words)
+            countMap.put(temp,countMap.getOrDefault(temp,0)+1);
+        PriorityQueue<String> topK=new PriorityQueue<>((a,b)->countMap.get(a).equals(countMap.get(b))?a.compareTo(b):countMap.get(b)-countMap.get(a));
+        topK.addAll(countMap.keySet());
+        ArrayList<String> sol=new ArrayList<>();
+        for(int i=0;i<k;i++)
+            sol.add(topK.poll());
+        
+        return sol;
+    }
+}

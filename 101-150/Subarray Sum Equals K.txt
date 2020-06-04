@@ -1,0 +1,16 @@
+/*Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.*/
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer,Integer> arr_sum=new HashMap();
+        int sum=0,count=0;
+        arr_sum.put(0,1);
+        for(int i=0;i<nums.length;i++)
+        {
+             sum+=nums[i];
+            if(arr_sum.containsKey(sum-k))
+                count+=arr_sum.get(sum-k);
+            arr_sum.put(sum,arr_sum.getOrDefault(sum,0)+1);
+        }
+        return count;
+    }
+}

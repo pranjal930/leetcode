@@ -1,0 +1,41 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isSubPathLevel2(ListNode head, TreeNode root) {
+        if(head == null)
+            return true;
+        if (root == null)
+            return false;
+        if (head.val == root.val)
+            return  isSubPathLevel2(head.next, root.left) 
+                || isSubPathLevel2(head.next, root.right);
+        return false;
+    }
+    
+    public boolean isSubPath(ListNode head, TreeNode root) {
+        
+        // terminating conditions
+        if (root == null) {
+            return false;
+        }
+        
+        return isSubPathLevel2(head, root) 
+            || isSubPath(head, root.left)
+            || isSubPath(head, root.right);
+    }
+}

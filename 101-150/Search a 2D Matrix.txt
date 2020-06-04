@@ -1,0 +1,25 @@
+/*Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+Integers in each row are sorted from left to right.
+The first integer of each row is greater than the last integer of the previous row.*/
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix.length==0)
+            return false;
+        int rows=matrix.length,columns=matrix[0].length;
+        int low=0;
+        int high=rows*columns-1;
+        while(high>=low)
+        {
+            int mid=low+(high-low)/2;
+            int midElement=matrix[mid/columns][mid%columns];
+            if(midElement==target)
+                return true;
+            else if(midElement>target)
+                high=mid-1;
+            else
+                low=mid+1;
+        }
+        return false;
+    }
+}

@@ -1,0 +1,35 @@
+/*Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that their sum is equal to the given target*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        List <Integer> sorted=new ArrayList<>();
+        inorder(root,sorted);
+        int l=0,r=sorted.size()-1;
+        while(l<r)
+        {
+            if(sorted.get(l)+sorted.get(r)==k)
+                return true;
+            else if(sorted.get(l)+sorted.get(r)<k)
+                l++;
+            else
+                r--;
+        }
+        return false;
+    }
+    public void inorder(TreeNode root,List <Integer> sorted)
+    {
+        if(root==null)
+            return ;
+        inorder(root.left,sorted);
+        sorted.add(root.val);
+        inorder(root.right,sorted);
+    }
+}

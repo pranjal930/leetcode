@@ -1,0 +1,104 @@
+/*Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.*/
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] ans =new int[n][n];
+        int count=n,i=1;
+        int counter=0;
+        int xinc=-1,yinc=-1,xdec=0,ydec=-1,temp;
+        int x=0,y=-1;
+        while(i<=n*n)
+        {
+            temp=count;
+            if(xdec==0)
+            {
+                y++;
+                while(temp-->0)
+                {
+                    if(i<=n*n)
+                    ans[x][y++]=i++;
+                    else 
+                    break;
+   
+                }
+                xinc=-1;
+                yinc=0;
+                xdec=-1;
+                ydec=-1;
+                if(counter%2==0)
+                count--;
+                counter++;
+                y--;
+            }
+            else if(yinc==0)
+            {
+                x++;
+                while(temp-->0)
+                {
+                    if(i<=n*n)
+                    ans[x++][y]=i++;
+                    else 
+                    break;
+   
+                }
+                xinc=0;
+                yinc=-1;
+                xdec=-1;
+                ydec=-1;
+                if(counter%2==0)
+                count--;
+                counter++;
+                x--;
+            }
+            else if(xinc==0)
+            {
+                y--;
+                while(temp-->0)
+                {
+                    if(i<=n*n)
+                    ans[x][y--]=i++;
+                    else 
+                    break;
+   
+                }
+                xinc=-1;
+                yinc=-1;
+                xdec=-1;
+                ydec=0;
+                if(counter%2==0)
+                count--;
+                counter++;
+                y++;
+            }
+            else if(ydec==0)
+            {
+                x--;
+                while(temp-->0)
+                {
+                    if(i<=n*n)
+                    ans[x--][y]=i++;
+                    else 
+                    break;
+   
+                }
+                xinc=-1;
+                yinc=-1;
+                xdec=0;
+                ydec=-1;
+                if(counter%2==0)
+                count--;
+                counter++;
+                x++;
+            }
+          
+        }
+        /*for(int i=0;i<n;i++)
+        {
+            System.out.println("");
+            for(int j=0;j<n;j++)
+            {
+                System.out.print(ans[i][j]+" ");
+            }
+        }*/
+        return ans;
+    }
+}
